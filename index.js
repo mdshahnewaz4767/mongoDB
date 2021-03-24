@@ -38,12 +38,20 @@ client.connect(err => {
     })
   })
 
-  //delete
+  //delete data
   app.delete('/delete/:id', (req, res) => {
     console.log(req.params.id);
     collection.deleteOne({_id: ObjectId(req.params.id)})
     .then( result => {
         console.log(result);
+    })
+  })
+
+  //Load single data
+  app.get('/product/:id', (req, res) => {
+    collection.find({_id: ObjectId(req.params.id)})
+    .toArray( (err, documents) => {
+      res.send(documents[0]);
     })
   })
 
