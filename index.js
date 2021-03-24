@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 
 const uri = "mongodb+srv://organicUser:NewazZ@1010*@cluster0.mkcgo.mongodb.net/organicdb?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -18,16 +19,8 @@ client.connect(err => {
   const collection = client.db("organicdb").collection("products");
   // perform actions on the collection object
   
-  //read data
-  app.get('/products', (req, res) => {
-    collection.find({}).limit(4)
-    .toArray ( (err, documents) => {
-      res.send(documents);
-    })
-  })
-
-  //create data
-  app.post("/addProduct", (req, res) => {
+   //create data
+   app.post("/addProduct", (req, res) => {
     const product = req.body;
     // console.log(product);
     collection.insertOne(product)
@@ -36,6 +29,25 @@ client.connect(err => {
       res.send('Success')
     })
   })
+
+  //read data
+  app.get('/products', (req, res) => {
+    collection.find({}).limit(4)
+    .toArray ( (err, documents) => {
+      res.send(documents);
+    })
+  })
+
+  //delete
+  app.delete('/delete/:id', (req, res) => {
+    console.log(req.params.id);
+    collection.deleteOne({_id: ObjectId(req.params.id)})
+    .then( result => {
+        console.log(result);
+    })
+  })
+
+
 
    // const product = {name: "Honey", price: 25, quantity: 20};
   // collection.insertOne(product)
