@@ -18,6 +18,15 @@ client.connect(err => {
   const collection = client.db("organicdb").collection("products");
   // perform actions on the collection object
   
+  //read data
+  app.get('/products', (req, res) => {
+    collection.find({}).limit(4)
+    .toArray ( (err, documents) => {
+      res.send(documents);
+    })
+  })
+
+  //create data
   app.post("/addProduct", (req, res) => {
     const product = req.body;
     // console.log(product);
