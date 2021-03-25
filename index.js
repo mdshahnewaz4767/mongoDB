@@ -55,6 +55,19 @@ client.connect(err => {
     })
   })
 
+  //update data
+  app.patch('/update/:id', (req, res) => {
+    collection.updateOne({_id: ObjectId(req.params.id)}, 
+      {
+        $set: {price: req.body.price, quantity: req.body.quantity}
+      }
+    )
+    .then(result => {
+      console.log(result);
+    })
+
+  })
+
 
 
    // const product = {name: "Honey", price: 25, quantity: 20};
