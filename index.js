@@ -26,13 +26,14 @@ client.connect(err => {
     collection.insertOne(product)
     .then(result => {
       console.log('Data added successfully');
-      res.send('Success')
+      // res.send('Success')
+      res.redirect('/')
     })
   })
 
   //read data
   app.get('/products', (req, res) => {
-    collection.find({}).limit(4)
+    collection.find({}).limit(7)
     .toArray ( (err, documents) => {
       res.send(documents);
     })
@@ -43,7 +44,8 @@ client.connect(err => {
     console.log(req.params.id);
     collection.deleteOne({_id: ObjectId(req.params.id)})
     .then( result => {
-        console.log(result);
+        // console.log(result);
+        res.send(result.deletedCount > 0);
     })
   })
 
@@ -63,7 +65,8 @@ client.connect(err => {
       }
     )
     .then(result => {
-      console.log(result);
+      // console.log(result);
+      res.send(result.modifiedCount > 0);
     })
 
   })
