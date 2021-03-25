@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 
-const uri = "mongodb+srv://organicUser:NewazZ@1010*@cluster0.mkcgo.mongodb.net/organicdb?retryWrites=true&w=majority";
+const uri = "mongodb+srv://organicUser:a012345678@cluster0.mkcgo.mongodb.net/organicdb?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
